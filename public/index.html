@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mooncafe.space</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Login View -->
+    <div id="login-view">
+        <div class="login-card">
+            <h2>Welcome to mooncafe.space</h2>
+            <p>Please choose a display name to enter the chat.</p>
+            <input type="text" id="username-input" placeholder="Your display name" autofocus>
+            <button id="login-button">Enter Chat</button>
+        </div>
+    </div>
+
+    <!-- Main Application Window (Initially Hidden) -->
+    <div class="main-window hidden" id="chat-view">
+        <!-- Title Bar -->
+        <div class="title-bar">
+            <div class="app-name">
+                <svg viewBox="0 0 100 100">
+                    <path class="cup" d="M10 30 H 80 C 90 30, 95 40, 95 50 C 95 60, 90 70, 80 70 H 10 Z"></path>
+                    <path class="steam" d="M30 25 Q 35 15, 40 25"></path>
+                    <path class="steam" d="M45 20 Q 50 10, 55 20"></path>
+                    <path class="steam" d="M60 25 Q 65 15, 70 25"></path>
+                </svg>
+                mooncafe.space
+            </div>
+            <div class="status-time" id="status-time">12:00 PM</div>
+        </div>
+
+        <!-- Menu Bar -->
+        <div class="menu-bar">
+            <div class="menu-item">File</div>
+            <div class="menu-item">Edit</div>
+            <div class="menu-item">Friend</div>
+            <div class="menu-item">Format</div>
+            <div class="menu-item">Links</div>
+            <div class="menu-item">Extra Toys</div>
+            <div class="menu-item">Help</div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Left: Chat Pane -->
+            <div class="chat-pane">
+                <div class="messages" id="message-container">
+                    <!-- Messages will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Right: User List -->
+            <div class="user-list" id="user-list-panel">
+                <div class="user-list-header" id="user-list-header">0 Users >> 0 Ignored</div>
+                <div class="users" id="user-list">
+                    <!-- Users will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Control Bar -->
+        <div class="control-bar">
+            <div class="top-controls">
+                <div class="font-controls">
+                    <span>Name</span>
+                    <select id="font-family-select">
+                        <option value="var(--font-ui)">Tahoma</option>
+                        <option value="var(--font-chat-special)">Special Elite</option>
+                        <option value="var(--font-chat-hand)">Patrick Hand</option>
+                        <option value="Arial">Arial</option>
+                        <option value="Courier New">Courier New</option>
+                    </select>
+                    <select id="font-size-select">
+                        <option value="1em">10</option>
+                        <option value="1.2em">12</option>
+                        <option value="1.4em">14</option>
+                    </select>
+                </div>
+                <div class="style-controls">
+                    <button class="style-button" id="bold-btn"><b>B</b></button>
+                    <button class="style-button" id="italic-btn"><i>I</i></button>
+                    <button class="style-button" id="underline-btn"><u>U</u></button>
+                    <button class="emote-button" id="emote-picker-btn">😊</button>
+                </div>
+            </div>
+            <div class="bottom-controls">
+                <div class="mini-buttons">
+                    <button class="mini-btn" id="join-room-btn-open">ChangeRoom</button>
+                    <button class="mini-btn">Find</button>
+                    <button class="mini-btn">Buddies</button>
+                    <button class="mini-btn">Gossip</button>
+                    <button class="mini-btn">Ignore</button>
+                    <button class="mini-btn">Filter</button>
+                    <button class="mini-btn">Symbols</button>
+                    <button class="mini-btn">Profile</button>
+                    <button class="mini-btn">PM</button>
+                </div>
+                <div class="message-controls">
+                    <input type="text" id="message-input" placeholder="Say something...">
+                    <button id="send-button">Send</button>
+                </div>
+                <div class="scroll-toggle">
+                    <input type="checkbox" id="scroll-on-checkbox" checked>
+                    <label for="scroll-on-checkbox">Scroll On</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Join Room Modal -->
+    <div class="modal-overlay" id="join-room-modal">
+        <div class="modal">
+            <div class="modal-titlebar">
+                <span>Join a Room</span>
+                <button class="modal-close-btn" data-target-modal="join-room-modal">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="join-help-pane">
+                    <p>Welcome to mooncafe!</p>
+                    <p>Select a category and then choose a room to join.</p>
+                </div>
+                <div class="join-category-pane">
+                    <div class="category-tree">
+                        <ul>
+                            <li>&#128193; General</li>
+                            <li>&#128193; Hobbies</li>
+                            <li>&#128193; Tech</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="join-rooms-pane">
+                    <div class="rooms-list-container">
+                         <ul class="room-list">
+                            <li>#cafe</li>
+                            <li>#lounge</li>
+                            <li>#library</li>
+                        </ul>
+                    </div>
+                    <button id="go-to-room-btn">Go to Room</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Emote Picker Modal -->
+    <div class="modal-overlay" id="emote-picker-modal">
+        <div class="modal">
+            <div class="modal-titlebar">
+                <span>Emotes</span>
+                <button class="modal-close-btn" data-target-modal="emote-picker-modal">&times;</button>
+            </div>
+            <div class="modal-content" id="emote-grid">
+                <!-- Emotes will be populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- User Context Menu -->
+    <div id="user-context-menu">
+        <div data-action="pm">Private Message</div>
+        <div data-action="profile">View Profile</div>
+        <div data-action="ignore">Ignore</div>
+    </div>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
