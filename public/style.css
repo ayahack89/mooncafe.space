@@ -265,7 +265,7 @@ body {
 /* --- MESSAGES --- */
 .message-row {
     display: flex;
-    margin-bottom: 8px; /* Slightly less space than before, for a tighter look */
+    margin-bottom: 0;
     align-items: flex-start; /* Ensure items align at the top */
 }
 .message-row .avatar {
@@ -294,10 +294,10 @@ body {
     color: var(--text-light);
     font-style: italic;
     margin-top: -2px;
-    margin-bottom: 2px;
+    margin-bottom: 0;
 }
 .message-text {
-    line-height: 1.2; /* Reduced for a more compact 2000s chatroom look */
+    line-height: 1.0; /* Reduced for a more compact 2000s chatroom look */
     word-break: break-word;
 }
 .system-message {
@@ -573,8 +573,8 @@ select {
 /* --- Appended Styles for New Features --- */
 
 .message-row.consecutive {
-    margin-top: -4px; /* Reduce gap between consecutive messages slightly more */
-    margin-bottom: 4px; /* Add a small consistent gap */
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .message-row.consecutive .avatar,
