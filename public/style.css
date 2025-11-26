@@ -26,7 +26,7 @@
 /* --- BASE & LAYOUT --- */
 body {
     background-color: var(--cafe-bg);
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NkE4MzAwOURGMTgwMTFFNzk5QkZEN0NEN0JGMDYxQzYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NkE4MzAwOUVGMTgwMTFFNzk5QkZEN0NEN0JGMDYxQzYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2QTgzMDA5QkYxODAxMUU3OTlCRkQ3Q0Q3QkYwNjFDNiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2QTgzMDA5Q0YxODAxMUU3OTlCRkQ3Q0Q3QkYwNjFDNiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2tldCBlbmQ9InIiPz4+5Qi0AAAAHUlEQVR42uzBAQEAAACCIP+vbkhAAQAAAAAAAMBupgABBgDGGAACpgSBywAAAABJRU5ErkJggg=='); /* Faint paper texture */
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZGdooi54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NkE4MzAwOURGMTgwMTFFNzk5QkZEN0NEN0JGMDYxQzYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NkE4MzAwOUVGMTgwMTFFNzk5QkZEN0NEN0JGMDYxQzYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2QTgzMDA5QkYxODAxMUU3OTlCRkQ3Q0Q3QkYwNjFDNiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2QTgzMDA5Q0YxODAxMUU3OTlCRkQ3Q0Q3QkYwNjFDNiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2tldCBlbmQ9InIiPz4+5Qi0AAAAHUlEQVR42uzBAQEAAACCIP+vbkhAAQAAAAAAAMBupgABBgDGGAACpgSBywAAAABJRU5ErkJggg=='); /* Faint paper texture */
     font-family: var(--font-ui);
     font-size: 14px;
     color: var(--text-main);
@@ -146,6 +146,7 @@ body {
     border-bottom: 1px solid var(--border-color);
     flex-shrink: 0;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 .menu-item {
     font-size: 12px;
@@ -264,7 +265,8 @@ body {
 /* --- MESSAGES --- */
 .message-row {
     display: flex;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Slightly less space than before, for a tighter look */
+    align-items: flex-start; /* Ensure items align at the top */
 }
 .message-row .avatar {
     width: 30px;
@@ -295,7 +297,7 @@ body {
     margin-bottom: 2px;
 }
 .message-text {
-    line-height: 1.5;
+    line-height: 1.2; /* Reduced for a more compact 2000s chatroom look */
     word-break: break-word;
 }
 .system-message {
@@ -567,4 +569,78 @@ select {
         cursor: pointer;
         border: 1px solid var(--coffee-dark);
     }
+}
+/* --- Appended Styles for New Features --- */
+
+.message-row.consecutive {
+    margin-top: -4px; /* Reduce gap between consecutive messages slightly more */
+    margin-bottom: 4px; /* Add a small consistent gap */
+}
+
+.message-row.consecutive .avatar,
+.message-row.consecutive .message-username,
+.message-row.consecutive .message-flair {
+    visibility: hidden;
+}
+
+.message-row.consecutive .message-content {
+    margin-top: 0; /* Remove this as it's not needed with adjusted message-row margin */
+}
+
+#reply-indicator {
+    display: none;
+    padding: 5px 10px;
+    background-color: #eee;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 11px;
+    color: #333;
+}
+
+.message-row.replying {
+    background-color: #f0f8ff;
+}
+
+.reply-quote {
+    background-color: #f0f0f0;
+    border-left: 2px solid var(--coffee-light);
+    padding: 5px 8px;
+    margin-bottom: 5px; /* Keep a small gap between quote and message text */
+    font-size: 11px;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensure padding is included in the width/height */
+    max-width: 100%; /* Prevent it from overflowing its parent */
+    word-break: break-word; /* Ensure long text breaks */
+}
+
+.reply-quote .reply-username {
+    font-weight: bold;
+    color: var(--coffee-dark);
+}
+
+.reply-quote .reply-text {
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+/* System message styling */
+.system-message.system-join {
+    color: #28a745; /* Green */
+    font-weight: bold;
+}
+
+.system-message.system-leave {
+    color: #dc3545; /* Red */
+    font-weight: bold;
+}
+#current-user-session {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--white);
+    padding: 2px 8px;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 4px;
+    margin-right: auto;
 }

@@ -62,6 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let isScrollOn = true;
     let identity = null;
     let circleId = 'main-cafe';
+    let lastMessageSender = null;
+    let replyingTo = null;
     let currentUserStyle = {
         fontFamily: 'var(--font-ui)',
         fontSize: '1em',
@@ -136,28 +138,56 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const appendMessage = (msg) => {
-        const msgRow = document.createElement('div');
-        if (msg.system) {
+        const isSystemMessage = msg.system;
+        const nickname = msg.username || 'Guest';
+        const isConsecutive = lastMessageSender === nickname && !isSystemMessage;
+
+        if (isSystemMessage) {
+            const msgRow = document.createElement('div');
             msgRow.className = 'system-message';
+            if (msg.type === 'join') {
+                msgRow.classList.add('system-join');
+            } else if (msg.type === 'leave') {
+                msgRow.classList.add('system-leave');
+            }
             msgRow.textContent = msg.text;
+            messageContainer.appendChild(msgRow);
+            lastMessageSender = null; // Reset for system messages
         } else {
-            // BUG FIX: The server sends 'username', but client was expecting 'nickname'.
-            const nickname = msg.username || 'Guest';
+            const msgRow = document.createElement('div');
             msgRow.className = 'message-row';
+            msgRow.dataset.messageId = msg.id; // For reply feature
+
+            if (isConsecutive) {
+                msgRow.classList.add('consecutive');
+            }
+
+            let replyHtml = '';
+            if (msg.replyTo) {
+                replyHtml = `
+                    <div class="reply-quote">
+                        <span class="reply-username">${msg.replyTo.username}</span>
+                        <span class="reply-text">${msg.replyTo.text}</span>
+                    </div>
+                `;
+            }
+
             const s = msg.style || {};
-            const flairEl = msg.flair ? `<div class="message-flair">${msg.flair}</div>` : '';
+            const flairEl = msg.flair && !isConsecutive ? `<div class="message-flair">${msg.flair}</div>` : '';
             const textStyle = `font-family: ${s.fontFamily || 'var(--font-ui)'}; color: ${s.color || '#333'}; font-weight: ${s.fontWeight || 'normal'}; font-style: ${s.fontStyle || 'normal'}; text-decoration: ${s.textDecoration || 'none'}; font-size: ${s.fontSize || '1em'};`;
 
             msgRow.innerHTML = `
                 <div class="avatar" style="background-color: ${generateAvatarColor(nickname)}">${msg.avatar || '👤'}</div>
                 <div class="message-content">
+                    ${replyHtml}
                     <span class="message-username" style="color: ${s.color || '#333'}" data-username="${nickname}">${nickname}</span>
                     ${flairEl}
                     <span class="message-text" style="${textStyle}">${msg.text}</span>
                 </div>
             `;
+            messageContainer.appendChild(msgRow);
+            lastMessageSender = nickname;
         }
-        messageContainer.appendChild(msgRow);
 
         if (isScrollOn) {
             messageContainer.scrollTop = messageContainer.scrollHeight;
@@ -165,17 +195,18 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const generateAvatarColor = (username) => {
+        const classyColors = [
+            '#2c3e50', '#34495e', '#7f8c8d', '#95a5a6',
+            '#2980b9', '#3498db', '#27ae60', '#2ecc71',
+            '#f39c12', '#f1c40f', '#e67e22', '#d35400',
+            '#c0392b', '#e74c3c', '#8e44ad', '#9b59b6'
+        ];
         let hash = 0;
         if (!username) return '#ccc';
         for (let i = 0; i < username.length; i++) {
             hash = username.charCodeAt(i) + ((hash << 5) - hash);
         }
-        let color = '#';
-        for (let i = 0; i < 3; i++) {
-            let value = (hash >> (i * 8)) & 0xFF;
-            color += ('00' + value.toString(16)).substr(-2);
-        }
-        return color;
+        return classyColors[Math.abs(hash) % classyColors.length];
     };
     
     const applyInputStyles = () => {
@@ -198,11 +229,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (text && identity) {
             const message = {
                 text: text,
-                style: { ...currentUserStyle }
+                style: { ...currentUserStyle },
+                replyTo: replyingTo
             };
             socket.emit('chatMessage', message);
             messageInput.value = '';
             messageInput.focus();
+
+            // Reset reply state
+            replyingTo = null;
+            const replyIndicator = document.getElementById('reply-indicator');
+            replyIndicator.style.display = 'none';
+            document.querySelectorAll('.message-row.replying').forEach(el => el.classList.remove('replying'));
         }
     };
 
@@ -354,6 +392,11 @@ document.addEventListener('DOMContentLoaded', () => {
             circle: circleId
         };
         socket.emit('newUser', payload);
+
+        // Display current user's nickname in the session indicator
+        const currentUserSession = document.getElementById('current-user-session');
+        currentUserSession.textContent = identity.nickname;
+        currentUserSession.style.display = 'block';
     };
 
     socket.on('connect', () => {
@@ -373,8 +416,8 @@ document.addEventListener('DOMContentLoaded', () => {
         appendMessage(messageData);
     });
     
-    socket.on('systemMessage', (text) => {
-        appendMessage({ system: true, text: text });
+    socket.on('systemMessage', (msg) => {
+        appendMessage({ system: true, text: msg.text, type: msg.type });
     });
     
     socket.on('nicknameError', (error) => {
@@ -398,6 +441,30 @@ document.addEventListener('DOMContentLoaded', () => {
         updateUserTime();
         setInterval(updateUserTime, 60000);
         createResponsiveToggle();
+
+    messageContainer.addEventListener('click', (e) => {
+        const messageRow = e.target.closest('.message-row');
+        if (messageRow && messageRow.dataset.messageId) {
+            const messageId = messageRow.dataset.messageId;
+
+            if (replyingTo === messageId) {
+                // Deselect if clicking the same message again
+                replyingTo = null;
+                messageRow.classList.remove('replying');
+                document.getElementById('reply-indicator').style.display = 'none';
+            } else {
+                replyingTo = messageId;
+                document.querySelectorAll('.message-row.replying').forEach(el => el.classList.remove('replying'));
+                messageRow.classList.add('replying');
+
+                const replyIndicator = document.getElementById('reply-indicator');
+                const repliedMessage = messageRow.querySelector('.message-text').textContent;
+                replyIndicator.textContent = `Replying to: "${repliedMessage.substring(0, 30)}..."`;
+                replyIndicator.style.display = 'block';
+                messageInput.focus();
+            }
+        }
+    });
     };
 
     init();

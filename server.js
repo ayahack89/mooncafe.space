@@ -24,14 +24,17 @@ io.on('connection', (socket) => {
         // Ensure circle exists
         if (!circles[circleId]) {
             circles[circleId] = {
-                users: {},
-                messages: []
+                users: new Map(),
+                messages: {
+                    byId: new Map(),
+                    order: [],
+                }
             };
         }
         const circle = circles[circleId];
 
         // Nickname uniqueness check
-        const existingUser = Object.values(circle.users).find(u => u.nickname === nickname);
+        const existingUser = Array.from(circle.users.values()).find(u => u.nickname === nickname);
         if (existingUser && existingUser.clientToken !== clientToken) {
             socket.emit('nicknameError', { message: `Nickname "${nickname}" is already in use. Please choose another.` });
             return;
@@ -44,39 +47,51 @@ io.on('connection', (socket) => {
 
         // Store user data
         const user = { nickname, flair, clientToken, id: socket.id, avatar: '👤' };
-        circle.users[socket.id] = user;
+        circle.users.set(socket.id, user);
 
         console.log(`${nickname} (${socket.id}) joined circle: ${circleId}`);
 
         // Send message history to the new user
-        socket.emit('messageHistory', circle.messages);
+        socket.emit('messageHistory', Array.from(circle.messages.byId.values()));
 
         // Broadcast system message to the circle
-        socket.to(circleId).emit('systemMessage', `${nickname} has joined the circle.`);
+        io.to(circleId).emit('systemMessage', { text: `${nickname} has joined the circle.`, type: 'join' });
         
         // Send the updated user list to everyone in the circle
-        io.to(circleId).emit('userList', Object.values(circle.users));
+        io.to(circleId).emit('userList', Array.from(circle.users.values()));
     });
 
     socket.on('chatMessage', (messageData) => {
         const circleId = socket.circleId;
         const circle = circles[circleId];
-        const user = circle ? circle.users[socket.id] : null;
+        const user = circle ? circle.users.get(socket.id) : null;
 
         if (user && circle) {
+            let repliedToMessage = null;
+            if (messageData.replyTo) {
+                repliedToMessage = circle.messages.byId.get(messageData.replyTo);
+            }
+
             const fullMessage = {
+                id: Date.now() + '-' + Math.random(),
                 username: user.nickname,
                 flair: user.flair,
                 avatar: user.avatar,
                 text: messageData.text,
                 style: messageData.style,
-                timestamp: new Date()
+                timestamp: new Date(),
+                replyTo: repliedToMessage ? {
+                    username: repliedToMessage.username,
+                    text: repliedToMessage.text
+                } : null
             };
             
             // Add to message history and cap it
-            circle.messages.push(fullMessage);
-            if (circle.messages.length > MAX_MESSAGES_PER_CIRCLE) {
-                circle.messages.shift();
+            circle.messages.byId.set(fullMessage.id, fullMessage);
+            circle.messages.order.push(fullMessage.id);
+            if (circle.messages.order.length > MAX_MESSAGES_PER_CIRCLE) {
+                const oldestMessageId = circle.messages.order.shift();
+                circle.messages.byId.delete(oldestMessageId);
             }
 
             // Broadcast the message to the circle
@@ -89,21 +104,21 @@ io.on('connection', (socket) => {
         const circle = circles[circleId];
 
         if (circle) {
-            const user = circle.users[socket.id];
+            const user = circle.users.get(socket.id);
             if (user) {
                 console.log(`${user.nickname} has left circle: ${circleId}`);
                 
                 // Remove user from the circle
-                delete circle.users[socket.id];
+                circle.users.delete(socket.id);
 
                 // If the circle is empty, delete it to save memory
-                if (Object.keys(circle.users).length === 0) {
+                if (circle.users.size === 0) {
                     delete circles[circleId];
                     console.log(`Circle ${circleId} is empty and has been removed.`);
                 } else {
                     // Broadcast that the user has left and the new user list
-                    io.to(circleId).emit('systemMessage', `${user.nickname} has left the circle.`);
-                    io.to(circleId).emit('userList', Object.values(circle.users));
+                    io.to(circleId).emit('systemMessage', { text: `${user.nickname} has left the circle.`, type: 'leave' });
+                    io.to(circleId).emit('userList', Array.from(circle.users.values()));
                 }
             }
         }
