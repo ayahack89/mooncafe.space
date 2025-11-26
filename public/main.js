@@ -368,9 +368,9 @@ document.addEventListener('DOMContentLoaded', () => {
     userListToggleBtn.addEventListener('click', () => {
         contentArea.classList.toggle('user-list-closed');
         if (contentArea.classList.contains('user-list-closed')) {
-            userListToggleBtn.textContent = '<<';
+            userListToggleBtn.textContent = '❒';
         } else {
-            userListToggleBtn.textContent = '>>';
+            userListToggleBtn.textContent = '❒';
         }
     });
     
