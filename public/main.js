@@ -1,4 +1,17 @@
 
+/*
+- BUG REPORT -
+Title: Username displays as ‘undefined’ in message list
+Environment: mooncafe.space chat room, current web app
+Steps to reproduce:
+  1. Open mooncafe.space.
+  2. Enter a nickname in the login form and join the room.
+  3. Send a message in the main chat area.
+  4. Observe the message header/username line.
+Actual result: Username label appears as “undefined”.
+Expected result: It should display the user’s chosen nickname.
+Suspected area: The client-side message rendering function (`appendMessage`) is expecting a `nickname` property on the message object, but the server is sending a `username` property.
+*/
 document.addEventListener('DOMContentLoaded', () => {
     // --- DOM ELEMENTS ---
     const landingView = document.getElementById('landing-view');
@@ -20,6 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const modals = document.querySelectorAll('.modal-overlay');
     const openJoinModalBtn = document.getElementById('join-room-btn-open');
     const openEmoteModalBtn = document.getElementById('emote-picker-btn');
+    const aboutBtn = document.getElementById('about-btn');
+    const collaborateBtn = document.getElementById('collaborate-btn');
     const shareCircleModal = document.getElementById('share-circle-modal');
     const closeButtons = document.querySelectorAll('.modal-close-btn');
 
@@ -28,6 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const shareLinkInput = document.getElementById('share-link-input');
     const copyLinkBtn = document.getElementById('copy-link-btn');
     const newCircleBtn = document.getElementById('new-circle-btn');
+
+    const userListToggleBtn = document.getElementById('user-list-toggle-btn');
+    const contentArea = document.querySelector('.content-area');
 
     // Nickname change
     const changeNicknameBtn = document.getElementById('change-nickname-btn');
@@ -108,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
             userEl.innerHTML = `
                 <div class="avatar">${user.avatar || '👤'}</div>
                 <div class="user-info">
-                    <span>${user.username}</span>
+<span>${user.nickname}</span>
                     ${flairEl}
                 </div>
             `;
@@ -123,15 +141,17 @@ document.addEventListener('DOMContentLoaded', () => {
             msgRow.className = 'system-message';
             msgRow.textContent = msg.text;
         } else {
+            // BUG FIX: The server sends 'username', but client was expecting 'nickname'.
+            const nickname = msg.username || 'Guest';
             msgRow.className = 'message-row';
             const s = msg.style || {};
             const flairEl = msg.flair ? `<div class="message-flair">${msg.flair}</div>` : '';
             const textStyle = `font-family: ${s.fontFamily || 'var(--font-ui)'}; color: ${s.color || '#333'}; font-weight: ${s.fontWeight || 'normal'}; font-style: ${s.fontStyle || 'normal'}; text-decoration: ${s.textDecoration || 'none'}; font-size: ${s.fontSize || '1em'};`;
 
             msgRow.innerHTML = `
-                <div class="avatar" style="background-color: ${generateAvatarColor(msg.username)}">${msg.avatar || '👤'}</div>
+                <div class="avatar" style="background-color: ${generateAvatarColor(nickname)}">${msg.avatar || '👤'}</div>
                 <div class="message-content">
-                    <span class="message-username" style="color: ${s.color || '#333'}" data-username="${msg.username}">${msg.username}</span>
+                    <span class="message-username" style="color: ${s.color || '#333'}" data-username="${nickname}">${nickname}</span>
                     ${flairEl}
                     <span class="message-text" style="${textStyle}">${msg.text}</span>
                 </div>
@@ -256,6 +276,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     openJoinModalBtn.addEventListener('click', () => showModal('join-room-modal'));
     openEmoteModalBtn.addEventListener('click', () => showModal('emote-picker-modal'));
+    aboutBtn.addEventListener('click', () => showModal('about-modal'));
+    collaborateBtn.addEventListener('click', () => showModal('collaborate-modal'));
 
     createCircleBtn.addEventListener('click', () => {
         shareLinkInput.value = window.location.href;
@@ -304,6 +326,16 @@ document.addEventListener('DOMContentLoaded', () => {
         emoteGrid.appendChild(emoteEl);
     });
 
+    
+    userListToggleBtn.addEventListener('click', () => {
+        contentArea.classList.toggle('user-list-closed');
+        if (contentArea.classList.contains('user-list-closed')) {
+            userListToggleBtn.textContent = '<<';
+        } else {
+            userListToggleBtn.textContent = '>>';
+        }
+    });
+    
     // --- SOCKET.IO ---
     const socket = io({ autoConnect: false });
 
