@@ -11,13 +11,18 @@
 
 <body>
 
-    <!-- Landing View (Initially Hidden) -->
-    <div id="landing-view" class="hidden">
+       <!-- Landing View -->
+     <div id="landing-view">
         <div class="login-card">
             <h2>Welcome to mooncafé.space</h2>
             <p>No accounts, no history. Just strangers chatting.</p>
-            <input type="text" id="nickname-input" placeholder="Nickname" required>
-            <input type="text" id="flair-input" placeholder="Flair (e.g. #nightowl)" maxlength="25">
+            
+            <div class="field-label">Nickname</div>
+            <input type="text" id="nickname-input" placeholder="Enter your nickname" required>
+            
+            <div class="field-label">Flair (e.g. #nightowl)</div>
+            <input type="text" id="flair-input" placeholder="Optional flair" maxlength="25">
+            
             <button id="enter-button">Enter the café</button>
         </div>
     </div>
@@ -28,12 +33,6 @@
         <div class="title-bar">
             <div class="app-name">
                 <i class="ri-contrast-2-line"></i>
-                <!-- <svg viewBox="0 0 100 100">
-                    <path class="cup" d="M10 30 H 80 C 90 30, 95 40, 95 50 C 95 60, 90 70, 80 70 H 10 Z"></path>
-                    <path class="steam" d="M30 25 Q 35 15, 40 25"></path>
-                    <path class="steam" d="M45 20 Q 50 10, 55 20"></path>
-                    <path class="steam" d="M60 25 Q 65 15, 70 25"></path>
-                </svg> -->
                 mooncafé.space
             </div>
             <div class="status-time" id="status-time">12:00 PM</div>
@@ -81,7 +80,7 @@
                 <div class="font-controls">
                     <span>Fonts</span>
                     <select id="font-family-select">
-                        <option value="var(--font-ui)">Tahoma</option>
+                        <option value="Tahoma">Tahoma</option>
                         <option value="var(--font-chat-special)">Special Elite</option>
                         <option value="var(--font-chat-hand)">Patrick Hand</option>
                         <option value="Arial">Arial</option>
@@ -103,7 +102,7 @@
             </div>
             <div class="bottom-controls">
                 <div class="mini-buttons">
-                    <button class="mini-btn" id="join-room-btn-open">ChangeRoom</button>
+                    <button class="mini-btn" id="join-room-btn-open">Change Room</button>
                 </div>
                 <div class="message-controls">
                     <input type="text" id="message-input" placeholder="Say something...">
@@ -128,7 +127,7 @@
                 <div class="join-help-pane">
                     <p>Welcome to mooncafé!</p>
                     <p>Select a category and then choose a room to join.</p>
-                    <p class="red-warning">* This feature isn’t live yet. Currently it’s on under development. For now,
+                    <p class="red-warning">* This feature isn't live yet. Currently it's on under development. For now,
                         you can use
                         <b>"Create/Share Circle"</b> to generate a link and share it with your friends so you all can
                         jump in and
@@ -213,25 +212,23 @@
                 <p>
                     From a technical side, I wanted to keep things as lightweight and open as possible.
                     There is no database, no message history, and nothing stored permanently. Everything you see
-                    here exists only in memory while you’re connected. Once you leave, it’s gone. This public
+                    here exists only in memory while you're connected. Once you leave, it's gone. This public
                     version runs on Vercel, so standard access logs may still exist on their end, but the chat
-                    itself doesn’t keep anything. If someone needs stronger privacy or even Tor-level anonymity,
-                    I’ve made the entire source code available so anyone can run it on their own machine.
+                    itself doesn't keep anything. If someone needs stronger privacy or even Tor-level anonymity,
+                    I've made the entire source code available so anyone can run it on their own machine.
                 </p>
                 <p>
-                    mooncafé.space isn’t meant to be a secure or encrypted messaging service just a small,
+                    mooncafé.space isn't meant to be a secure or encrypted messaging service just a small,
                     old-school café on the internet where conversations come and go like passing clouds.
                     I hope you enjoy your time here.
                 </p>
                 <p>Now grab a cup of coffee and enjoy : )</p>
 
                 <p style="margin-top: 1.2em; font-size: 0.95em; opacity: 0.85; color:#dc3545;">
-                    <strong>Friendly reminder:</strong> please don’t use this chat for illegal or harmful content.
+                    <strong>Friendly reminder:</strong> please don't use this chat for illegal or harmful content.
                     Each person is responsible for what they post here, and this platform cannot take
-                    responsibility for anyone’s actions.
+                    responsibility for anyone's actions.
                 </p>
-
-
             </div>
         </div>
     </div>
@@ -244,15 +241,14 @@
                 <button class="modal-close-btn" data-target-modal="collaborate-modal">&times;</button>
             </div>
            <div class="modal-content">
-    <h3>Interested in collaborating on mooncafe.space?</h3>
-    <p>
-        Contact at:
-        <a href="mailto:ayanabha.c@aol.com">ayanabha.c@aol.com</a><br>
-        Or dm me on X (Twitter):
-        <a href="https://x.com/ayanabha08" target="_blank">x.com/ayanabha08</a>
-    </p>
-</div>
-
+                <h3>Interested in collaborating on mooncafe.space?</h3>
+                <p>
+                    Contact at:
+                    <a href="mailto:ayanabha.c@aol.com">ayanabha.c@aol.com</a><br>
+                    Or dm me on X (Twitter):
+                    <a href="https://x.com/ayanabha08" target="_blank">x.com/ayanabha08</a>
+                </p>
+            </div>
         </div>
     </div>
 
