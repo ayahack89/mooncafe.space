@@ -1,17 +1,4 @@
 
-/*
-- BUG REPORT -
-Title: Username displays as ‘undefined’ in message list
-Environment: mooncafe.space chat room, current web app
-Steps to reproduce:
-  1. Open mooncafe.space.
-  2. Enter a nickname in the login form and join the room.
-  3. Send a message in the main chat area.
-  4. Observe the message header/username line.
-Actual result: Username label appears as “undefined”.
-Expected result: It should display the user’s chosen nickname.
-Suspected area: The client-side message rendering function (`appendMessage`) is expecting a `nickname` property on the message object, but the server is sending a `username` property.
-*/
 document.addEventListener('DOMContentLoaded', () => {
     // --- DOM ELEMENTS ---
     const landingView = document.getElementById('landing-view');

@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mooncafe.space</title>
-    <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css"
-    rel="stylesheet"
-/>
+    <title>mooncafé.space</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <!-- Landing View (Initially Hidden) -->
     <div id="landing-view" class="hidden">
         <div class="login-card">
-            <h2>Welcome to mooncafe.space</h2>
+            <h2>Welcome to mooncafé.space</h2>
             <p>No accounts, no history. Just strangers chatting.</p>
             <input type="text" id="nickname-input" placeholder="Nickname" required>
             <input type="text" id="flair-input" placeholder="Flair (e.g. #nightowl)" maxlength="25">
@@ -28,14 +27,14 @@
         <!-- Title Bar -->
         <div class="title-bar">
             <div class="app-name">
-            <i class="ri-contrast-2-line"></i>
+                <i class="ri-contrast-2-line"></i>
                 <!-- <svg viewBox="0 0 100 100">
                     <path class="cup" d="M10 30 H 80 C 90 30, 95 40, 95 50 C 95 60, 90 70, 80 70 H 10 Z"></path>
                     <path class="steam" d="M30 25 Q 35 15, 40 25"></path>
                     <path class="steam" d="M45 20 Q 50 10, 55 20"></path>
                     <path class="steam" d="M60 25 Q 65 15, 70 25"></path>
                 </svg> -->
-                mooncafe.space
+                mooncafé.space
             </div>
             <div class="status-time" id="status-time">12:00 PM</div>
         </div>
@@ -45,10 +44,14 @@
             <div id="current-user-session" style="display: none;"></div>
             <div class="menu-item" id="change-nickname-btn">Change Nickname</div>
             <div class="menu-item" id="create-circle-btn">Create/Share Circle</div>
-            <div class="menu-item" id="about-btn">mooncafe.space/About</div>
+            <div class="menu-item" id="about-btn">mooncafé.space/About</div>
             <div class="menu-item" id="collaborate-btn">Collaborate</div>
             <a href="https://github.com/your-repo/mooncafe.space" target="_blank" class="menu-item github-link">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                    <path fill-rule="evenodd"
+                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+                    </path>
+                </svg>
             </a>
         </div>
 
@@ -76,7 +79,7 @@
             <div id="reply-indicator"></div>
             <div class="top-controls">
                 <div class="font-controls">
-                    <span>Name</span>
+                    <span>Fonts</span>
                     <select id="font-family-select">
                         <option value="var(--font-ui)">Tahoma</option>
                         <option value="var(--font-chat-special)">Special Elite</option>
@@ -89,6 +92,7 @@
                         <option value="1.2em">12</option>
                         <option value="1.4em">14</option>
                     </select>
+                    <p><em>`tap`<i class="ri-reply-line"></i></em> the message to reply</p>
                 </div>
                 <div class="style-controls">
                     <button class="style-button" id="bold-btn"><b>B</b></button>
@@ -122,8 +126,14 @@
             </div>
             <div class="modal-content">
                 <div class="join-help-pane">
-                    <p>Welcome to mooncafe!</p>
+                    <p>Welcome to mooncafé!</p>
                     <p>Select a category and then choose a room to join.</p>
+                    <p class="red-warning">* This feature isn’t live yet. Currently it’s on under development. For now,
+                        you can use
+                        <b>"Create/Share Circle"</b> to generate a link and share it with your friends so you all can
+                        jump in and
+                        chat together : )
+                    </p>
                 </div>
                 <div class="join-category-pane">
                     <div class="category-tree">
@@ -136,7 +146,7 @@
                 </div>
                 <div class="join-rooms-pane">
                     <div class="rooms-list-container">
-                         <ul class="room-list">
+                        <ul class="room-list">
                             <li>#cafe</li>
                             <li>#lounge</li>
                             <li>#library</li>
@@ -147,7 +157,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Emote Picker Modal -->
     <div class="modal-overlay" id="emote-picker-modal">
         <div class="modal">
@@ -169,7 +179,7 @@
                 <button class="modal-close-btn" data-target-modal="share-circle-modal">&times;</button>
             </div>
             <div class="modal-content">
-                <p>Invite others to this circle with this link:</p>
+                <p>Create your own circle & invite others with this link:</p>
                 <input type="text" id="share-link-input" readonly>
                 <button id="copy-link-btn">Copy Link</button>
                 <hr>
@@ -193,15 +203,35 @@
                 <button class="modal-close-btn" data-target-modal="about-modal">&times;</button>
             </div>
             <div class="modal-content">
-                <h3>The Story of mooncafe.space</h3>
+                <h3>The Story behind mooncafé.space</h3>
                 <p>
-                    This is a placeholder for the story behind the creation of this chat application. 
-                    It was built to bring back the feeling of old-school, anonymous chatrooms from the early 2000s.
-                    A place for strangers to connect and just talk, without the baggage of profiles, history, or algorithms.
+                    I built mooncafé.space because I missed the simplicity of the early internet those small,
+                    no-pressure chatrooms from the 2000s where anyone could drop in, choose a nickname, talk for a
+                    while, and disappear again without leaving a trail behind. No accounts, no profiles, no
+                    algorithms watching over you. Just a quiet corner of the web where people could speak freely.
                 </p>
                 <p>
-                    Enjoy your stay in the café.
+                    From a technical side, I wanted to keep things as lightweight and open as possible.
+                    There is no database, no message history, and nothing stored permanently. Everything you see
+                    here exists only in memory while you’re connected. Once you leave, it’s gone. This public
+                    version runs on Vercel, so standard access logs may still exist on their end, but the chat
+                    itself doesn’t keep anything. If someone needs stronger privacy or even Tor-level anonymity,
+                    I’ve made the entire source code available so anyone can run it on their own machine.
                 </p>
+                <p>
+                    mooncafé.space isn’t meant to be a secure or encrypted messaging service just a small,
+                    old-school café on the internet where conversations come and go like passing clouds.
+                    I hope you enjoy your time here.
+                </p>
+                <p>Now grab a cup of coffee and enjoy : )</p>
+
+                <p style="margin-top: 1.2em; font-size: 0.95em; opacity: 0.85; color:#dc3545;">
+                    <strong>Friendly reminder:</strong> please don’t use this chat for illegal or harmful content.
+                    Each person is responsible for what they post here, and this platform cannot take
+                    responsibility for anyone’s actions.
+                </p>
+
+
             </div>
         </div>
     </div>
@@ -213,17 +243,21 @@
                 <span>Collaborate</span>
                 <button class="modal-close-btn" data-target-modal="collaborate-modal">&times;</button>
             </div>
-            <div class="modal-content">
-                <h3>Interested in collaborating on mooncafe.space?</h3>
-                <p>
-                    Contact us at: <a href="mailto:collab@mooncafe.space">collab@mooncafe.space</a>
-                </p>
-                <button class="modal-close-btn" data-target-modal="collaborate-modal">Close</button>
-            </div>
+           <div class="modal-content">
+    <h3>Interested in collaborating on mooncafe.space?</h3>
+    <p>
+        Contact at:
+        <a href="mailto:ayanabha.c@aol.com">ayanabha.c@aol.com</a><br>
+        Or dm me on X (Twitter):
+        <a href="https://x.com/ayanabha08" target="_blank">x.com/ayanabha08</a>
+    </p>
+</div>
+
         </div>
     </div>
-    
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="main.js"></script>
 </body>
+
 </html>
