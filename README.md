@@ -1,5 +1,9 @@
 # mooncafé.space
 
+[![Open Source Love](httpshttps://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+
 ![mooncafé.space Screenshot](https://raw.githubusercontent.com/ayahack89/mooncafe.space/main/chat-room-previews/chat-room-pic-one.jpg)
 
 **mooncafé.space** is a nostalgic, ephemeral chat application inspired by the simple, anonymous chatrooms of the early 2000s. No accounts, no profiles, no history. Just a quiet corner of the web for transient conversations.
@@ -96,10 +100,7 @@ For users who require a higher level of anonymity, you can run mooncafé.space a
 
 ## Contributing
 
-Interested in collaborating on mooncafé.space?
-
-Contact at: <a href="mailto:ayanabha.c@aol.com">ayanabha.c@aol.com</a>
-Or dm me on X (Twitter): <a href="https://x.com/ayanabha08" target="_blank">x.com/ayanabha08</a>
+We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for more details on how to get started.
 
 ---
 
